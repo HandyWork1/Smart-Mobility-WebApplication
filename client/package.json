@@ -15,7 +15,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:css": "postcss src/assets/css/tailwind.css -o public/css/tailwind.css"
   },
   "eslintConfig": {
     "extends": [
@@ -36,6 +37,9 @@
     ]
   },
   "devDependencies": {
-    "tailwindcss": "^3.4.1"
+    "autoprefixer": "^10.4.17",
+    "postcss": "^8.4.33",
+    "postcss-cli": "^11.0.0",
+    "tailwind": "^4.0.0"
   }
 }

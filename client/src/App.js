@@ -1,23 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
+import Home from './components/pages/Home';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="flex flex-col min-h-screen">
+      <header className="bg-white shadow-md py-4">
+        {/* Add your header content here */}
       </header>
+      <main className="flex-grow">
+        <Home />
+      </main>
+      <footer className="bg-gray-800 text-white py-4">
+        {/* Add your footer content here */}
+      </footer>
     </div>
   );
 }
