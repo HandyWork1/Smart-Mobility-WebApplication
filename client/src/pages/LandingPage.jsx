@@ -6,7 +6,7 @@ import Landing from '../components/landing/Landing';
 const LandingPage = () => {
   return (
     <div>
-      <Header hasBackgroundImage={true} />
+      <Header hasBackgroundImage={false} isAuthenticated={false} />
       <Landing />
       <Footer />
     </div>
