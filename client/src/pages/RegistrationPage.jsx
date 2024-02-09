@@ -1,79 +1,58 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import RegistrationLogic from '../components/auth/RegistrationLogic';
 
 const RegistrationPage = () => {
+  const navigate = useNavigate();
+
+  // Handle Firebase authentication  
   const handleGoogleSignUp = () => {
     // Implement Google Sign-Up logic here
     console.log('Signing up with Google');
   };
+  // API request to submit  user registration information
+  const handleFormSubmit = async (formData) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/register', formData);
+  
+      if (response.status === 200) {
+        // Registration successful
+        handleValidationAlert('Registration successful!');
+        navigate("/login");
+      } else {
+        // Registration failed
+        handleValidationAlert(response.data.message || 'Registration failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      handleValidationAlert('Registration failed. Please try again.');
+    }
+  };
+  
+  // Alert Display for  validation errors or success messages
+  const handleValidationAlert = (message) => {
+    toast.error(message, {
+      position: 'top-center',
+      autoClose: 5000, 
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   return (
     <div className="flex items-center justify-center h-screen bg-green-500">
-      <div className="bg-white p-8 shadow-md rounded-md max-w-md w-full">
+      <div className="bg-white p-8 shadow-md rounded-md max-w-md w-full animate__animated animate__fadeIn animate__delay-1s">
         <h2 className="text-3xl font-semibold mb-6 text-green-700">Sign Up</h2>
-        <form className="animate__animated animate__fadeIn animate__delay-1s">
-          <div className="mb-6">
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-              Username
-            </label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition duration-300"
-              // Add other necessary attributes and handlers
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition duration-300"
-              // Add other necessary attributes and handlers
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition duration-300"
-              // Add other necessary attributes and handlers
-            />
-          </div>
-
-          <div className="mb-6">
-            <button
-              type="submit"
-              className="w-full bg-green-700 text-white py-2 rounded-md hover:bg-green-900 focus:outline-none transition duration-300"
-            >
-              Sign Up
-            </button>
-          </div>
-
-          <div className="flex items-center justify-between mb-6">
-            <hr className="w-1/4 border-t border-gray-300" />
-            <span className="text-gray-500 mx-2">OR</span>
-            <hr className="w-1/4 border-t border-gray-300" />
-          </div>
-
-          <button
-            type="button"
-            onClick={handleGoogleSignUp}
-            className="flex items-center justify-center w-full bg-white border border-gray-300 py-2 px-4 rounded-md transition duration-300 hover:bg-gray-100 focus:outline-none focus:border-green-500"
-          >
-            <i className="fab fa-google text-red-500 mr-2"></i>
-            Sign up with Google
-          </button>
-        </form>
-
+        <RegistrationLogic 
+        handleGoogleSignUp={handleGoogleSignUp} 
+        handleFormSubmit={handleFormSubmit}
+        handleValidationAlert={handleValidationAlert}
+         />
         <p className="mt-4 text-gray-600">
           Already have an account? <Link to="/login" className="text-green-500 hover:underline">Login</Link>
         </p>
