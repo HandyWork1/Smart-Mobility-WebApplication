@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
@@ -15,11 +15,11 @@ const RegistrationPage = () => {
   // API request to submit  user registration information
   const handleFormSubmit = async (formData) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/register', formData);
+      const response = await axios.post('http://localhost:5000/api/auth/register', formData);
   
       if (response.status === 200) {
         // Registration successful
-        handleValidationAlert('Registration successful!');
+        handleSuccessAlert('Registration successful!');
         navigate("/login");
       } else {
         // Registration failed
@@ -27,13 +27,26 @@ const RegistrationPage = () => {
       }
     } catch (error) {
       console.error('Error during registration:', error);
-      handleValidationAlert('Registration failed. Please try again.');
+      const errorMessage = error.response?.data?.message || 'Registration failed. Please try again.';
+      handleValidationAlert(errorMessage);
     }
   };
   
-  // Alert Display for  validation errors or success messages
+  // Alert Display for  validation errors
   const handleValidationAlert = (message) => {
     toast.error(message, {
+      position: 'top-center',
+      autoClose: 5000, 
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
+  // Alert Display for success 
+  const handleSuccessAlert = (message) => {
+    toast.success(message, {
       position: 'top-center',
       autoClose: 5000, 
       hideProgressBar: false,
@@ -49,9 +62,9 @@ const RegistrationPage = () => {
       <div className="bg-white p-8 shadow-md rounded-md max-w-md w-full animate__animated animate__fadeIn animate__delay-1s">
         <h2 className="text-3xl font-semibold mb-6 text-green-700">Sign Up</h2>
         <RegistrationLogic 
-        handleGoogleSignUp={handleGoogleSignUp} 
-        handleFormSubmit={handleFormSubmit}
-        handleValidationAlert={handleValidationAlert}
+          handleGoogleSignUp={handleGoogleSignUp} 
+          handleFormSubmit={handleFormSubmit}
+          handleValidationAlert={handleValidationAlert}
          />
         <p className="mt-4 text-gray-600">
           Already have an account? <Link to="/login" className="text-green-500 hover:underline">Login</Link>

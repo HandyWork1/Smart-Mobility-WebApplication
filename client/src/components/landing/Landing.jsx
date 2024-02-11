@@ -14,7 +14,7 @@ function Landing() {
         <div className="w-full h-full absolute top-0 left-0 bg-black opacity-40 z-0"></div>
         <div className="w-full max-w-4xl text-white px-8 py-8 md:py-24 mx-auto z-0">
           <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">
-            Welcome to <span className="text-green-600">Smart </span><br />Mobility 
+            Welcome to <span className="text-green-600">Smart<br />Mobility </span> 
           </h2>
           <p className="mb-6 md:mb-12 text-gray-300">
             Explore eco-friendly transportation options and reduce your carbon footprint with Smart Mobility. Our innovative app guides you towards sustainable commuting choices, making a positive impact on the environment.

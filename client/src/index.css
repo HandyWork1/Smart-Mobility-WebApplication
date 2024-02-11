@@ -1,8 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* src/index.css */
 @import '~@fortawesome/fontawesome-free/css/all.css';
+@import 'animate.css/animate.css';
+
 
 body {
   margin: 0;
