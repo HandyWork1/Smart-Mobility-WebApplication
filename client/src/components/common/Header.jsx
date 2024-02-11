@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
+import LogoutModal from '../modals/LogoutModal';
 
 function Header({ hasBackgroundImage, isAuthenticated }) {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isProfileDropdownOpen, setProfileDropdownOpen] = useState(false);
+  const [isLogoutModalOpen, setLogoutModalOpen] = useState(false);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
+  // Handle transparent navbar
   const handleScroll = () => {
     const header = document.querySelector('header');
     if (header) {
@@ -15,6 +21,16 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
         header.classList.remove('bg-green-900', 'opacity-90', 'transition', 'ease-in-out', 'duration-300');
       }
     }
+  };
+
+  // Logout Handling
+  const handleLogout = () => {
+    // Perform logout logic, calling the logout function from your context
+    logout();
+    setLogoutModalOpen(false);
+
+    // Redirect to the home page or another appropriate page after logout
+    navigate('/');
   };
 
   useEffect(() => {
@@ -56,9 +72,15 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
                     <Link to="/account" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={toggleProfileDropdown}>
                       Account
                     </Link>
-                    <Link to="/logout" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" onClick={toggleProfileDropdown}>
+                    <button
+                      className="block w-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      onClick={() => {
+                        toggleProfileDropdown();
+                        setLogoutModalOpen(true);
+                      }}
+                    >
                       Logout
-                    </Link>
+                    </button>
                   </div>
                 </div>
               )}
@@ -99,7 +121,15 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
               {isAuthenticated ? (
                 <>
                   <Link to="/account" className="mobile-nav-link" onClick={toggleMobileMenu}>Account</Link>
-                  <Link to="/logout" className="mobile-nav-link" onClick={toggleMobileMenu}>Logout</Link>
+                  <button
+                    className="mobile-nav-link w-full"
+                    onClick={() => {
+                      toggleMobileMenu();
+                      setLogoutModalOpen(true);
+                    }}
+                  >
+                    Logout
+                  </button>
                 </>
               ) : (
                 <div className="flex flex-col space-y-4">
@@ -111,6 +141,11 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
           </div>
         )}
       </div>
+      <LogoutModal
+        isOpen={isLogoutModalOpen}
+        onRequestClose={() => setLogoutModalOpen(false)}
+        onLogout={handleLogout}
+      />
     </header>
   );
 }

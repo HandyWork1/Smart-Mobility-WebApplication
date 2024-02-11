@@ -6,7 +6,9 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 // API Routes
-const authRouter = require('./routes/auth');
+const authRouter = require('./controllers/auth');
+const authControllerRouter = require('./controllers/authController');
+
 
 app.use(express.json());
 app.use(cors());
@@ -21,7 +23,8 @@ mongoose.connect(process.env.MONGODB_URI)
     });
 // API Routes
 // Registration Route
-app.use('/api', authRoutes);
+app.use('/api/auth', authRouter);
+app.use('/api/auth', authControllerRouter);
  
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

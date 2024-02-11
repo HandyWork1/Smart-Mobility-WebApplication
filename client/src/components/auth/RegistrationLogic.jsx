@@ -15,6 +15,7 @@ const RegistrationLogic = ({ handleGoogleSignUp, handleFormSubmit, handleValidat
   // Validation for form submission
   const validateForm = () => {
     const { fullName, username, email, password } = formData;
+    console.log("Form data", formData);
 
     if (!fullName || !username || !email || !password) {
       return 'All fields are required.';
@@ -23,8 +24,6 @@ const RegistrationLogic = ({ handleGoogleSignUp, handleFormSubmit, handleValidat
     if (password.length < 6) {
       return 'Password should be at least 6 characters.';
     }
-
-    // Add more validations if needed
 
     return null; 
   };
@@ -70,7 +69,7 @@ const RegistrationLogic = ({ handleGoogleSignUp, handleFormSubmit, handleValidat
             id="username"
             name="username"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition duration-300"
-            // Add other necessary attributes and handlers
+            onChange={handleInputChange}            
             />
         </div>
         <div className="mb-6">
@@ -82,7 +81,7 @@ const RegistrationLogic = ({ handleGoogleSignUp, handleFormSubmit, handleValidat
             id="email"
             name="email"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition duration-300"
-            // Add other necessary attributes and handlers
+            onChange={handleInputChange}
             />
         </div>
         <div className="mb-6">
@@ -94,7 +93,7 @@ const RegistrationLogic = ({ handleGoogleSignUp, handleFormSubmit, handleValidat
             id="password"
             name="password"
             className="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:border-green-500 transition duration-300"
-            // Add other necessary attributes and handlers
+            onChange={handleInputChange}
             />
         </div>
 
