@@ -24,6 +24,7 @@ mongoose.connect(process.env.MONGODB_URI)
 // API Routes
 // Registration Route
 app.use('/api/auth', authRouter);
+// Login Route
 app.use('/api/auth', authControllerRouter);
  
 app.listen(port, () => {
