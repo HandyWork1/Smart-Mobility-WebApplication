@@ -56,6 +56,84 @@ function Landing() {
           </div>
         </div>
       </main>
+      {/* Features Section */}
+      <section className="bg-green-600 py-16 text-white">
+        <div className="w-full max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">
+            Key Features
+          </h2>
+          <p className="mb-12 text-gray-300">
+            Discover the features that make Smart Mobility a leading choice for eco-friendly commuting.
+          </p>
+          <div className="flex flex-wrap -mx-4">
+            {/* Feature 1 */}
+            <div className="w-full md:w-1/3 px-4 mb-4">
+              <div className="transition duration-500 ease-in-out hover:bg-white hover:text-black hover:shadow-md rounded-lg p-6">
+                <h3 className="text-2xl tracking-tight font-bold mb-2">
+                  <i className="fas fa-car-side mr-2"></i> Carpooling
+                </h3>
+                <p className="mb-4">Share rides and reduce the number of vehicles on the road.</p>
+                <button className="bg-white text-green-600 font-bold py-2 px-4 rounded">
+                  Learn More
+                </button>
+              </div>
+            </div>
+            {/* Feature 2 */}
+            <div className="w-full md:w-1/3 px-4 mb-4">
+              <div className="transition duration-500 ease-in-out hover:bg-white hover:text-black hover:shadow-md rounded-lg p-6">
+                <h3 className="text-2xl tracking-tight font-bold mb-2">
+                  <i className="fas fa-tree mr-2"></i> Environmental Impact
+                </h3>
+                <p className="mb-4">Track and understand your positive impact on the environment.</p>
+                <button className="bg-white text-green-600 font-bold py-2 px-4 rounded">
+                  Learn More
+                </button>
+              </div>
+            </div>
+            {/* Feature 3 */}
+            <div className="w-full md:w-1/3 px-4 mb-4">
+              <div className="transition duration-500 ease-in-out hover:bg-white hover:text-black hover:shadow-md rounded-lg p-6">
+                <h3 className="text-2xl tracking-tight font-bold mb-2">
+                  <i className="fas fa-cogs mr-2"></i> Customization
+                </h3>
+                <p className="mb-4">Personalize your commuting preferences for a tailored experience.</p>
+                <button className="bg-white text-green-600 font-bold py-2 px-4 rounded">
+                  Learn More
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* How It Works Section */}
+      <section className="py-16">
+        <div className="w-full max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">
+            How It Works
+          </h2>
+          <p className="mb-12 text-gray-800">
+            Explore the simple steps to start your eco-friendly journey with Smart Mobility.
+          </p>
+          {/* Add your content for "How It Works" */}
+        </div>
+      </section>
+
+      {/* Download Section */}
+      <section className="bg-green-600 py-16 text-white">
+        <div className="w-full max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 md:mb-6">
+            Download Our App
+          </h2>
+          <p className="mb-12 text-gray-300">
+            Take the first step towards sustainable commuting. Download the Smart Mobility app today!
+          </p>
+          <div className="flex justify-center">
+            <button className="bg-white text-green-600 font-bold py-2 px-6 rounded-full">
+              Download Now
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
