@@ -25,9 +25,15 @@ const LoginPage = () => {
         // Update the isAuthenticated state and user details
         authContext.login(response.data);
         // Store user details in localStorage
-        localStorage.setItem('userDetails', JSON.stringify(response.data));
-
-        navigate("/");
+        const userDetails = response.data;
+        localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        console.log("This is the user type", userDetails.userType);
+        // Redirect to dashboard page after successful
+        if(userDetails.userType === 'user'){
+          navigate("/");
+        } else if (userDetails.userType === 'admin'){
+          navigate('/AdminDashboard');
+        }
       } else {
         // Check if there is an error message in the response data
         const errorMessage = response.data.error || 'Login failed. Please try again.';
@@ -39,8 +45,6 @@ const LoginPage = () => {
       handleValidationAlert(errorMessage);
     }
   };
-  
-   
 
   // Handle validation alerts
   const handleValidationAlert = (message) => {
