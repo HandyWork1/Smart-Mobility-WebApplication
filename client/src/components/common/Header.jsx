@@ -25,7 +25,7 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
 
   // Logout Handling
   const handleLogout = () => {
-    // Perform logout logic, calling the logout function from your context
+    // Logout logic, calling the logout function from your context
     logout();
     setLogoutModalOpen(false);
 
@@ -60,6 +60,7 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/route-planning" className="nav-link">Route Planning</Link>
           <Link to="/public-transportation" className="nav-link">Public Transportation</Link>
+          <Link to="/carbon-footprint" className="nav-link">Carbon Footprint</Link>
 
           {isAuthenticated ? (
             <div className="relative inline-block text-left">
@@ -73,7 +74,7 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
                       Account
                     </Link>
                     <button
-                      className="block w-100 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                      className="block w-full text-start px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => {
                         toggleProfileDropdown();
                         setLogoutModalOpen(true);
@@ -88,7 +89,6 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
           ) : (
             <div className="flex space-x-4">
               <Link to="/login" className="nav-link">Login</Link>
-              <Link to="/signup" className="nav-link">Signup</Link>
             </div>
           )}
         </nav>
@@ -117,6 +117,7 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
               <Link to="/" className="mobile-nav-link" onClick={toggleMobileMenu}>Home</Link>
               <Link to="/route-planning" className="mobile-nav-link" onClick={toggleMobileMenu}>Route Planning</Link>
               <Link to="/public-transportation" className="mobile-nav-link" onClick={toggleMobileMenu}>Public Transportation</Link>
+              <Link to="/carbon-footprint" className="mobile-nav-link" onClick={toggleMobileMenu}>Carbon Footprint</Link>
 
               {isAuthenticated ? (
                 <>
@@ -134,7 +135,6 @@ function Header({ hasBackgroundImage, isAuthenticated }) {
               ) : (
                 <div className="flex flex-col space-y-4">
                   <Link to="/login" className="mobile-nav-link" onClick={toggleMobileMenu}>Login</Link>
-                  <Link to="/signup" className="mobile-nav-link" onClick={toggleMobileMenu}>Signup</Link>
                 </div>
               )}
             </div>
