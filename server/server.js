@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 // API Routes
 const authRouter = require('./controllers/auth');
 const authControllerRouter = require('./controllers/authController');
+const userRouter = require('./routes/userRouter');
 
 
 app.use(express.json());
@@ -21,11 +22,14 @@ mongoose.connect(process.env.MONGODB_URI)
     .catch(err => {
       console.error("MongoDB connection error:", err);
     });
+
 // API Routes
 // Registration Route
 app.use('/api/auth', authRouter);
 // Login Route
 app.use('/api/auth', authControllerRouter);
+// Fetch users
+app.use("/api", userRouter);
  
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
