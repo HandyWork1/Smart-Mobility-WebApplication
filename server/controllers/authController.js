@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); 
+const {User} = require('../models/User'); 
 
 const router = express.Router();
 
@@ -27,9 +27,11 @@ router.post('/login', async (req, res) => {
     // Send user details and token on successful login
     res.status(200).json({
       userId: user._id,
+      userAvatar: user.avatar,
       email: user.email,
       fullName: user.fullName,
       userType: user.userType,
+      points: user.points,
       token,
     });
   } catch (error) {
