@@ -32,7 +32,7 @@ const LoginPage = () => {
         if(userDetails.userType === 'user'){
           navigate("/");
         } else if (userDetails.userType === 'admin'){
-          navigate('/AdminDashboard');
+          navigate('/admin-dashboard');
         }
       } else {
         // Check if there is an error message in the response data
@@ -74,7 +74,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex items-center justify-center h-screen bg-green-500">
-      <div className="bg-white p-8 shadow-md rounded-md max-w-md w-full">
+      <div className="bg-white p-8 shadow-md rounded-md max-w-md w-96 md:w-full">
         <h2 className="text-3xl font-semibold mb-6 text-green-700">Login</h2>
         <LoginLogic
           handleGoogleSignIn={handleGoogleSignIn}
