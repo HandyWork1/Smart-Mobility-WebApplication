@@ -1,66 +1,186 @@
 // src/components/admin/AdminSidebar.js
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Link } from "react-router-dom";
+import "react-pro-sidebar/dist/css/styles.css";
+import { tokens } from "../../theme";
+import { useAuth } from '../auth/AuthContext';
+// Icons
+import avatarPlaceholder from '../../assets/user-avatar.jpg';
+import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import CreateOutlinedIcon from "@mui/icons-material/CreateOutlined";
+import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
+
+const Item = ({ title, to, icon, selected, setSelected }) => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+    
+    return (
+      <MenuItem
+        active={selected === title}
+        style={{
+          color: colors.grey[100],
+        }}
+        onClick={() => setSelected(title)}
+        icon={icon}
+      >
+        <Typography>{title}</Typography>
+        <Link to={to} />
+      </MenuItem>
+    );
+  };
 
 const AdminSidebar = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
+    const { userDetails } = useAuth();
+    const [isCollapsed, setIsCollapsed] = useState(true);
+    const [selected, setSelected] = useState("Dashboard");
+
     return (
-        <div className="bg-gray-800 text-white w-64 h-screen flex flex-col items-center justify-between">
-            <div className="py-4">
-                <h2 className="text-lg font-semibold mb-8">Admin Panel</h2>
-                <ul>
-                    <li className="mb-4">
-                        <Link to="/admin/dashboard" className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                            <i className="fas fa-chart-bar mr-2"></i>
-                            Dashboard
-                        </Link>
-                    </li>
-                    <li className="mb-4">
-                        <Link to="/admin/users" className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                            <i className="fas fa-users mr-2"></i>
-                            Users
-                        </Link>
-                    </li>
-                    <li className="mb-4">
-                        <Link to="/admin/content" className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                            <i className="fas fa-file-alt mr-2"></i>
-                            Content Management
-                        </Link>
-                    </li>
-                    <li className="mb-4">
-                        <Link to="/admin/carbon-footprint" className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                            <i className="fas fa-leaf mr-2"></i>
-                            Carbon Footprint
-                        </Link>
-                    </li>
-                    <li className="mb-4">
-                        <Link to="/admin/community" className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                            <i className="fas fa-users-cog mr-2"></i>
-                            Community Engagement
-                        </Link>
-                    </li>
-                    <li className="mb-4">
-                        <Link to="/admin/reports-analytics" className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                            <i className="fas fa-chart-pie mr-2"></i>
-                            Reports & Analytics
-                        </Link>
-                    </li>
-                </ul>
-            </div>
-            <div className="py-4">
-                <div className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                    <i className="fas fa-cog mr-2"></i>
-                    Settings
-                </div>
-                <div className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                    <i className="fas fa-question-circle mr-2"></i>
-                    Help & Support
-                </div>
-                <div className="flex items-center justify-start py-2 px-4 hover:bg-gray-700">
-                    <i className="fas fa-sign-out-alt mr-2"></i>
-                    Logout
-                </div>
-            </div>
-        </div>
+        <Box
+        sx={{
+            "& .pro-sidebar-inner": {
+            background: `${colors.primary[400]} !important`,
+            },
+            "& .pro-icon-wrapper": {
+            backgroundColor: "transparent !important",
+            },
+            "& .pro-inner-item": {
+            padding: "5px 35px 5px 20px !important",
+            },
+            "& .pro-inner-item:hover": {
+            color: "#868dfb !important",
+            },
+            "& .pro-menu-item.active": {
+            color: "#6870fa !important",
+            },
+        }}
+        >
+        <ProSidebar collapsed={isCollapsed}>
+            <Menu iconShape="square">
+            {/* LOGO AND MENU ICON */}
+            <MenuItem
+                onClick={() => setIsCollapsed(!isCollapsed)}
+                icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+                style={{
+                margin: "10px 0 20px 0",
+                color: colors.grey[100],
+                }}
+            >
+                {!isCollapsed && (
+                <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    ml="15px"
+                >
+                    <Typography variant="h3" color={colors.grey[100]}>
+                    Admin
+                    </Typography>
+                    <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                    <MenuOutlinedIcon />
+                    </IconButton>
+                </Box>
+                )}
+            </MenuItem>
+
+            {!isCollapsed && (
+                <Box mb="25px">
+                <Box display="flex" justifyContent="center" alignItems="center">
+                    <img
+                    alt="profile-user"
+                    width="120px"
+                    height="120px"
+                    src={userDetails.avatar || avatarPlaceholder}
+                    style={{ cursor: "pointer", borderRadius: "50%" }}
+                    />
+                </Box>
+                <Box textAlign="center">
+                    <Typography
+                    variant="h2"
+                    color={colors.grey[100]}
+                    fontWeight="bold"
+                    sx={{ m: "10px 0 0 0" }}
+                    >
+                    {userDetails.fullName}
+                    </Typography>
+                    <Typography variant="h5" color={colors.greenAccent[500]}>
+                     Admin User
+                    </Typography>
+                </Box>
+                </Box>
+            )}
+
+            <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+                <Item
+                    title="Dashboard"
+                    to="/admin-dashboard"
+                    icon={<DashboardOutlinedIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                />
+
+                <Typography
+                    variant="h6"
+                    color={colors.grey[300]}
+                    sx={{ m: "15px 0 5px 20px" }}
+                >
+                    Users
+                </Typography>
+                <Item
+                    title="Manage Users"
+                    to="/admin-dashboard/manage-users"
+                    icon={<PeopleAltOutlinedIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                />
+                <Item
+                    title="User Profile"
+                    to="/admin-dashboard/user-profile"
+                    icon={<PersonOutlineOutlinedIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                />
+
+                <Typography
+                    variant="h6"
+                    color={colors.grey[300]}
+                    sx={{ m: "15px 0 5px 20px" }}
+                >
+                    Content
+                </Typography>
+                <Item
+                    title="Manage Content"
+                    to="/admin-dashboard/manage-content"
+                    icon={<CreateOutlinedIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                />
+
+                <Typography
+                    variant="h6"
+                    color={colors.grey[300]}
+                    sx={{ m: "15px 0 5px 20px" }}
+                >
+                    Reports & Analytics
+                </Typography>
+                <Item
+                    title="View Reports"
+                    to="/admin-dashboard/view-reports"
+                    icon={<AssessmentOutlinedIcon />}
+                    selected={selected}
+                    setSelected={setSelected}
+                />
+            </Box>
+
+            </Menu>
+        </ProSidebar>
+        </Box>
     );
 }
 
