@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { addChallenge } = require('../controllers/challengeController');
+const challengeController = require('../controllers/challengeController');
 
 // Route to add a new challenge
-router.post('/challenges', addChallenge);
+router.post('/challenges', challengeController.addChallenge);
 
 module.exports = router;
