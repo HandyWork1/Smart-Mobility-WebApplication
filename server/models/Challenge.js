@@ -11,13 +11,19 @@ const challengeSchema = new mongoose.Schema({
       required: true,
     },
     category: String,
-    duration: Number,
+    startDate: {
+      type: Date,
+      required: true,
+    },
+    endDate: {
+      type: Date,
+      required: true,
+    },
     isActive: {
       type: Boolean,
       default: true,
     },
   });
   
-  const Challenge = mongoose.model('Challenge', challengeSchema);
-  module.exports = Challenge;
-  
+const Challenge = mongoose.model('Challenge', challengeSchema);
+module.exports = Challenge;
