@@ -9,7 +9,7 @@ const LogoutModal = ({ isOpen, onRequestClose, onLogout }) => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       className="modal animate__animated animate__fadeIn animate__delay-1s w-96"
-      overlayClassName="overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+      overlayClassName="overlay fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
       shouldCloseOnOverlayClick={true}
     >
       <div className="p-6 bg-white rounded-md">
