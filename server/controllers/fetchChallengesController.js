@@ -4,7 +4,7 @@ const Challenge = require('../models/Challenge');
 const getAllChallenges = async (req, res) => {
   try {
     // Fetch all challenges from the database
-    const challenges = await Challenge.find({}, { title: 1, startDate: 1, endDate: 1 });
+    const challenges = await Challenge.find({}, { title: 1, description:1, points:1, startDate: 1, endDate: 1 });
 
     // Send the challenges as the response
     res.json(challenges);
