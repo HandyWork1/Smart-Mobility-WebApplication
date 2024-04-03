@@ -15,7 +15,7 @@ function Landing() {
         {/* Overlay */}
         <div className="w-full h-full absolute top-0 left-0 bg-black opacity-40 z-0"></div>
         {/* Main Content */}
-        <div className="w-full max-w-4xl text-center relative z-10">
+        <div className="w-full max-w-4xl text-center relative mx-2 my-9 z-10">
           <h2 className="text-3xl md:text-5xl md:text-left font-bold my-4 md:mb-6">
             Embrace Sustainable Living with <span className="text-green-500">Smart Mobility</span>
           </h2>
