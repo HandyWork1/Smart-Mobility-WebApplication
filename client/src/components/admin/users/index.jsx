@@ -92,9 +92,16 @@ const Users = () => {
     );
   };
 
-  const handleAddUser = (userId) =>{
-    // Handle add action
-    console.log("Add user:", userId);
+  const handleAddUser = async (userData) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/users/add-user', userData);
+      handleSuccessAlert('User added successfully');
+      setAddModalOpen(false); // Close the modal after successful addition
+      fetchUsers(); // Refresh user list
+    } catch (error) {
+      console.error('Error adding user:', error.message);
+      handleFailureAlert('Failed to add user');
+    }
   };
 
   const handleEdit = (userId) => {
