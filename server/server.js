@@ -12,10 +12,15 @@ const userRouter = require('./routes/userRouter');
 const challengesRouter = require('./routes/challengesRouter');
 const fetchChallengesRouter = require('./routes/fetchChallengesRouter');
 const deleteChallengesRouter = require('./routes/deleteChallengesRouter');
+// Middleware
+const uploadMiddleware = require('./middleware/uploadMiddleware');
 
 
 app.use(express.json());
 app.use(cors());
+
+// Middleware for image upload
+app.use(uploadMiddleware.single('avatar')); // Handle single file uploads with field name 'avatar'
 
 // Database connection
 mongoose.connect(process.env.MONGODB_URI)
