@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/common/Header';
 import ChallengeCard from '../components/common/ChallengeCard';
 import { useAuth } from '../components/auth/AuthContext';
@@ -14,6 +16,7 @@ const ChallengesTipsPage = () => {
     const [selectedDate, setSelectedDate] = useState(new Date()); // Set initial date to current date
     const [filteredChallenges, setFilteredChallenges] = useState([]);
     const [groupedChallenges, setGroupedChallenges] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchChallenges();
@@ -76,6 +79,24 @@ const ChallengesTipsPage = () => {
             </div>
         ));
     };
+
+     // Alert Display for Redirecting 
+    const handleIntruderAlert = (message) => {
+        toast.error(message, {
+        position: 'top-center',
+        autoClose: 5000, 
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    };
+
+    if (!isAuthenticated) {
+        handleIntruderAlert('User not logged in. Log in first');
+        navigate('/login');
+    }
 
     return (
         <div className="bg-gray-50">
