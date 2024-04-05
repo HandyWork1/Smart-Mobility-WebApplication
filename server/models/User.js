@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     default: 'user',
   },
   avatar: {
-    type: String,
+    type: Buffer,
     default: null,
   },
   points: {
