@@ -6,6 +6,7 @@ import AdminSidebar from '../components/admin/AdminSideBar';
 import AdminNavbar from '../components/admin/AdminNavbar';
 import Dashboard from '../components/admin/dashboard';
 import Users from '../components/admin/users';
+import AccountPage from '../components/admin/account/AccountPage';
 import ChallengesTipsPage from '../components/admin/content-management/ChallengesTipsPage';
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../theme";
@@ -17,7 +18,7 @@ const AdminDashboardPage = () => {
     const [isSidebar, setIsSidebar] = useState(true);
     const navigate = useNavigate();
 
-    // Alert Display for success 
+    // Alert Display for Redirecting 
   const handleIntruderAlert = (message) => {
     toast.error(message, {
       position: 'top-center',
@@ -52,6 +53,7 @@ const AdminDashboardPage = () => {
                             <Route path="/" element={<Dashboard />} />
                             <Route exact path="/manage-users" element={<Users />} />
                             <Route exact path="/manage-content" element={<ChallengesTipsPage />} />
+                            <Route exact path="/admin-account" element={<AccountPage/>}/>
                         </Routes>
                     </div>
                 </div>
