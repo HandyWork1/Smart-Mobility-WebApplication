@@ -16,35 +16,53 @@ const LoginPage = () => {
 
   // Implement the API request and validation logic for login
   const handleFormSubmit = async (formData) => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', formData);
-  
-      if (response.status === 200) {
-        // Login successful
-        handleSuccessAlert('Login successful!');
-        // Update the isAuthenticated state and user details
-        authContext.login(response.data);
-        // Store user details in localStorage
-        const userDetails = response.data;
-        localStorage.setItem('userDetails', JSON.stringify(userDetails));
-        console.log("This is the user type", userDetails.userType);
-        // Redirect to dashboard page after successful
-        if(userDetails.userType === 'user'){
-          navigate("/");
-        } else if (userDetails.userType === 'admin'){
-          navigate('/admin-dashboard');
-        }
+  try {
+    const response = await axios.post('http://localhost:5000/api/auth/login', formData);
+
+    if (response.status === 200) {
+      // Login successful
+      handleSuccessAlert('Login successful!');
+      
+      // Update the isAuthenticated state and user details
+      authContext.login(response.data);
+
+      // Store user details in localStorage
+      const userDetails = response.data;
+
+      // Check if user has an avatar and store it in localStorage
+      if (userDetails.userAvatar) {
+        // Fetch the avatar image and convert it to a Base64 string
+        const response = await fetch(userDetails.userAvatar);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          const base64data = reader.result;
+          userDetails.userAvatar = base64data;
+          localStorage.setItem('userDetails', JSON.stringify(userDetails));
+        };
       } else {
-        // Check if there is an error message in the response data
-        const errorMessage = response.data.error || 'Login failed. Please try again.';
-        handleValidationAlert(errorMessage);
+        localStorage.setItem('userDetails', JSON.stringify(userDetails));
       }
-    } catch (error) {
-      // Check if there is an error message in the error.response data
-      const errorMessage = error.response?.data?.error || 'Login failed. Please try again.';
+
+      // Redirect to dashboard page after successful login
+      if (userDetails.userType === 'user') {
+        navigate("/");
+      } else if (userDetails.userType === 'admin') {
+        navigate('/admin-dashboard');
+      }
+    } else {
+      // Check if there is an error message in the response data
+      const errorMessage = response.data.error || 'Login failed. Please try again.';
       handleValidationAlert(errorMessage);
     }
-  };
+  } catch (error) {
+    // Check if there is an error message in the error.response data
+    const errorMessage = error.response?.data?.error || 'Login failed. Please try again.';
+    handleValidationAlert(errorMessage);
+  }
+};
+
 
   // Handle validation alerts
   const handleValidationAlert = (message) => {
