@@ -76,7 +76,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         legendOffset: -40,
         legendPosition: "middle",
       }}
-      enableGridX={true}
+      enableGridX={false}
       enableGridY={false}
       pointSize={8}
       pointColor={{ theme: "background" }}
