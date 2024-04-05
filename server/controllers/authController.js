@@ -30,6 +30,7 @@ router.post('/login', async (req, res) => {
       userAvatar: user.avatar,
       email: user.email,
       fullName: user.fullName,
+      username: user.username,
       userType: user.userType,
       points: user.points,
       token,
