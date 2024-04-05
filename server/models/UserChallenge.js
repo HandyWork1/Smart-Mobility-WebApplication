@@ -3,23 +3,24 @@ const mongoose = require('mongoose');
 // UserChallenge Model
 const userChallengeSchema = new mongoose.Schema({
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
     },
     challengeId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Challenge',
-      required: true,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Challenge',
+        required: true,
     },
-    startDate: Date,
-    endDate: Date,
-    isCompleted: Boolean,
-    progress: {
-      type: Number,
-      default: 0,
+    completionDate: {
+        type: Date,
+        default: Date.now, // Defaults to the current date
     },
-  });
-  
-  const UserChallenge = mongoose.model('UserChallenge', userChallengeSchema);
-  module.exports = UserChallenge;
+    isCompleted: {
+        type: Boolean,
+        default: false, // Defaults to false
+    },
+});
+
+const UserChallenge = mongoose.model('UserChallenge', userChallengeSchema);
+module.exports = UserChallenge;
