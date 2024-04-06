@@ -1,5 +1,5 @@
 // src/components/admin/AdminSidebar.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -40,6 +40,14 @@ const AdminSidebar = () => {
     const { userDetails } = useAuth();
     const [isCollapsed, setIsCollapsed] = useState(true);
     const [selected, setSelected] = useState("Dashboard");
+    const [base64Avatar, setBase64Avatar] = useState('')
+    useEffect(() => {
+        const storedAvatar = localStorage.getItem('userAvatar');
+    
+        if (storedAvatar) {
+          setBase64Avatar(`data:image/jpeg;base64,${storedAvatar}`);
+        }
+      }, []);
 
     return (
         <Box
@@ -96,7 +104,7 @@ const AdminSidebar = () => {
                     alt="profile-user"
                     width="120px"
                     height="120px"
-                    src={userDetails.avatar || avatarPlaceholder}
+                    src={base64Avatar || avatarPlaceholder}
                     style={{ cursor: "pointer", borderRadius: "50%" }}
                     />
                 </Box>
@@ -141,7 +149,7 @@ const AdminSidebar = () => {
                 />
                 <Item
                     title="User Profile"
-                    to="/admin-dashboard/user-profile"
+                    to="/admin-dashboard/admin-account"
                     icon={<PersonOutlineOutlinedIcon />}
                     selected={selected}
                     setSelected={setSelected}
